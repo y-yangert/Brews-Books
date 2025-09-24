@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About | Brew&Books{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/header.css')}}">
+    <link rel="stylesheet" href="{{ asset('styles/style.css')}}">
+{% endblock %}
+
+{% block body %}
+
+<header class="navbar">
+    <div class="logo">
+        <a href="/">
+            <img id="logo" src="images/logo v2.png">
+        </a>
+    </div>
+
+    <ul class="links">
+        <li><a href="home">Home</a></li>
+        <li><a href="services">Brews&Books Box</a></li>
+        <li><a href="about">About Us</a></li>
+        <li><a href="contact">Get in Touch!</a></li>
+    </ul>
+    
+    <div class="login">
+        <a href="#" class="action-btn">Login</a>
+        <div class="cart-btn">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+        <div class="toggle-btn">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </div>
+    </nav>
+</header>
+
+
+<div class="row-2">
+        <div class="left">
+            <h3>How Brews&Books Started</h3>
+            <h1><i>For the love of books (and coffee)!</i> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus libero eget leo congue commodo.</h1>
+            <h2>Aenean malesuada metus a augue pulvinar molestie. Integer a tristique libero.</h2>
+        </div>
+        <div class="right">
+            <img id="about-img1" src="/images/reading-coffee-PH.png">
+        </div>
+</div>
+
+<div class="row">
+    <div class="banner">
+        <h1>
+            We aim to create a safe space for coffee and book enthusiasts alike!
+        </h1>    
+        <img class = "about-banner" src="images/about-banner.jpg">;
+        
+    </div>
+</div>
+
+<div class="row-3">
+    <h1>Our Coffee</h1>
+
+    <div class="column">
+
+    </div>
+</div>
+
+{% endblock %}  
