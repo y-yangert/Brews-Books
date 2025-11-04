@@ -1,0 +1,85 @@
+/* Base table style */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size);
+    color: var(--tertiary-color);
+    background: var(--base-color);
+    border-radius: 0.4em;
+    overflow: hidden;
+    box-shadow: 0 2px 2px var(--inactive-color);
+}
+
+/* Table header */
+
+.table thead th {
+    background-color: var(--inactive-color);
+    color: var(--secondary-color);
+    padding: 0.6em 1em;
+    border-bottom: 1px solid var(--inactive-color);
+    text-align: left;
+    user-select: none;
+    font-weight: 100;
+}
+
+/* Table body rows */
+.table tbody tr {
+    border-bottom: 1px solid var(--inactive-color);
+    transition: background-color 0.2s ease;
+}
+
+/* Hover effect: subtle background change */
+.table tbody tr:hover {
+    background-color: var(--inactive-light-color);
+    color: var(--secondary-color);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Table cells */
+.table td {
+    padding: 0.6em 1em;
+    vertical-align: middle;
+    border-right: 1px solid var(--inactive-color);
+}
+
+/* Remove border on last cell */
+.table td:last-child {
+    border-right: none;
+    color: var(--del-btn-color);
+}
+
+/* Actions links styling */
+
+.actions-icon {
+    color: lightgrey;
+}
+
+.actions-icon:hover {
+    color: var(--tertiary-color);
+}
+
+.active-status {
+    padding: 3.5px 15px;
+    border-radius: 1em;
+    border: 1px solid var(--new-dark-btn-color);
+    color: var(--new-dark-btn-color);
+    background-color: var(--new-light-btn-color);
+}
+
+.inactive-status {
+    padding: 3.5px 10px;
+    border-radius: 1em;
+    border: 1px solid var(--error-msg-color);
+    color: var(--error-msg-color);
+    background-color: var(--error-bg-color);
+}
+
+/* Responsive horizontal scroll */
+@media (max-width: 768px) {
+    .table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}

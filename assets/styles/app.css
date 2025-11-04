@@ -1,2 +1,68 @@
 @import "tailwindcss";
 @source not "../../public";
+
+@font-face {
+    font-family: 'Fat Kat';
+    src: url("C:\Users\i3-Bing\Downloads\Fat Kat - (Demo) hanscostudio.com.ttf") format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root { 
+    --font-family-base: 'Montserrat';
+    --base-color:  rgb(255, 255, 250);
+    --primary-color:  rgb(247, 243, 227);
+    --secondary-color: rgb(168, 116, 62);
+    --tertiary-color: rgb(79, 66, 54);
+    --inactive-color: rgba(247, 243, 227, 0.7);
+    --inactive-light-color:  rgba(247, 243, 227, 0.304);
+    --font-size: .85em;
+
+    --new-btn-color: rgb(154, 196, 127);
+    --new-light-btn-color: rgba(154, 196, 127, 0.6);
+    --new-dark-btn-color: rgb(91, 132, 65);
+
+    --error-msg-color:  rgb(176, 0, 32);
+    --error-bg-color:  rgba(176, 0, 32, 0.1);
+
+    --wip-color:  rgb(176, 0, 32);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--base-color);
+    min-width: 100%;
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+/* links */
+ul, li {
+    list-style: none;
+}
+
+a {
+    color: var(--tertiary-color);
+    text-decoration: none;
+    font-size: var(--font-size);
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+button {
+    font: inherit;
+    font-size: var(--font-size);
+}
+
+button:hover {
+    cursor: pointer;
+    color: var(--secondary-color);
+}

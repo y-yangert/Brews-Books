@@ -1,0 +1,132 @@
+.sidebar {
+    margin: 0;
+    padding: 1em 1em; /*y, x */
+    height: 100%;
+    width: 250px;
+    background-color: var(--primary-color);
+    position: sticky;
+    top: 0;
+    align-self: start;
+    z-index: 1;
+}
+
+.sidebar__logo {
+  display: flex;
+  justify-content: baseline;
+  gap: 0.75em;
+  padding: 1em 1em 1em .5em;
+  margin-bottom: min(100px, 20%);
+  background-color: var(--primary-color);
+  user-select: none;
+  cursor: default;
+}
+
+/* Logo icon */
+#logo-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 1px rgba(0,0,0,0.1));
+}
+
+/* Logo text */
+.sidebar__logo h1 {
+  font-size: 1.3em;
+  color: var(--secondary-color);
+  font-weight: 600;
+  margin: 0;
+  white-space: nowrap;
+  user-select: text;
+}
+
+
+/* Basic link and button styles, inventory*/
+.sidebar a,
+.sidebar__dropdown {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    padding: 0.6em;
+    border-radius: 0.5em;
+    text-decoration: none;
+    color: var(--tertiary-color);
+    cursor: pointer;
+    width: 100%;
+    font-size: var(--font-size);
+}
+
+.sidebar__dropdown {
+  justify-content: space-between;
+  text-align: left;
+}
+
+/* Icons */
+.sidebar i {
+  flex-shrink: 0;
+}
+
+.sidebar h3 {
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+/* Grow the span to fill space */
+.sidebar a span,
+.sidebar__dropdown span {
+  flex-grow: 1;
+}
+
+/* Hover and focus */
+.sidebar a:hover,
+.sidebar__dropdown:hover {
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+  outline: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dropdown caret icon */
+.sidebar__caret {
+    transition: transform 0.3s ease;
+    font-size: 0.8em;
+    align-self: center;
+}
+
+/* Hide submenu by default */
+.sidebar__submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    padding-left: 1.5em;
+    list-style: none;
+    margin: 0;
+}
+
+/* Show submenu when toggle is checked */
+.sidebar__toggle:checked ~ .sidebar__submenu {
+  max-height: 500px; /* Adjust as needed for submenu height */
+}
+
+/* Rotate caret when open */
+.sidebar__toggle:checked + .sidebar__dropdown .sidebar__caret {
+  transform: rotate(180deg);
+}
+
+/* Submenu item styles */
+.sidebar__submenu-item {
+  margin: 0.25em 0;
+}
+
+.sidebar__submenu-item .sidebar__link {
+  padding-left: 1.5em;
+  gap: 0.75em;
+  color: var(--tertiary-color);
+  border-radius: 0.3em;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.wip {
+  color: var(--wip-color);
+}

@@ -1,0 +1,90 @@
+{% block body %}
+
+<aside class="sidebar">
+  <div class="sidebar__logo">
+    <img id="logo-icon" src="images/icon logo.png">
+    <h1>Brews&Books.</h1>
+  </div>
+
+  <h3>HOME</h3>
+  <ul>
+    <li class="sidebar__item"><a href="/" class="sidebar__link">
+    <i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+    </li>
+  </ul>
+
+  <h3>MASTER DATA</h3>
+  <ul>
+    <li class="sidebar__item sidebar__item-dropdown">
+      <!-- Hidden checkbox for toggling submenu -->
+      <input type="checkbox" id="product-toggle" class="sidebar__toggle" hidden>
+
+      <!-- Label toggles checkbox and submenu -->
+      <label for="product-toggle" class="sidebar__dropdown sidebar__link" tabindex="0" role="button" aria-expanded="false" aria-controls="product-submenu">
+        <i class="fa-solid fa-box-open"></i>
+        <span>Products</span>
+        <i class="fa-solid fa-angle-down sidebar__caret"></i>
+      </label>
+
+      <ul id="inventory-submenu" class="sidebar__submenu" aria-hidden="true">
+        <li class="sidebar__item"><a href="/products" class="sidebar__link">
+            <i class="fa-solid fa-circle fa-2xs"></i><span>Overview</span></a>
+        </li>
+        <li class="sidebar__item"><a href="/book/details" class="sidebar__link">
+            <i class="fa-solid fa-circle fa-2xs"></i><span>Books</span></a>
+        </li>
+        <li class="sidebar__item"><a href="/coffee/details" class="sidebar__link">
+            <i class="fa-solid fa-circle fa-2xs"></i><span>Coffee</span></a>
+        </li>
+        </li>
+        <li class="sidebar__item"><a href="/coffee/details" class="sidebar__link">
+            <i class="fa-solid fa-circle fa-2xs"></i><span class="wip">Blind Box</span></a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="sidebar__item sidebar__item-dropdown">
+
+      <input type="checkbox" id="inventory-toggle" class="sidebar__toggle" hidden>
+
+      <label for="inventory-toggle" class="sidebar__dropdown sidebar__link" tabindex="0" role="button" aria-expanded="false" aria-controls="inventory-submenu">
+        <i class="fa-solid fa-boxes-stacked"></i>
+        <span>Inventory</span>
+        <i class="fa-solid fa-angle-down sidebar__caret"></i>
+      </label>
+
+      <ul id="inventory-submenu" class="sidebar__submenu" aria-hidden="true">
+        <li class="sidebar__item"><a href="/stocks" class="sidebar__link">
+            <i class="fa-solid fa-circle fa-2xs"></i><span>Stocks</span></a>
+        </li>
+        <li class="sidebar__item"><a href="/suppliers" class="sidebar__link">
+            <i class="fa-solid fa-circle fa-2xs"></i><span>Suppliers</span></a>
+        </li>
+        </li>
+        <li class="sidebar__item"><a href="/product/categories" class="sidebar__link">
+            <i class="fa-solid fa-circle fa-2xs"></i><span>Categories</span></a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="sidebar__item"><a href="#" class="sidebar__link">
+      <i class="fa-solid fa-circle fa-2xs"></i><span class="wip">Subscriptions</span></a>
+    </li>
+    <li class="sidebar__item"><a href="#" class="sidebar__link">
+      <i class="fa-solid fa-circle fa-2xs"></i><span class="wip">Customers</span></a>
+    </li>
+    <li class="sidebar__item"><a href="#" class="sidebar__link">
+      <i class="fa-solid fa-circle fa-2xs"></i><span class="wip">Sales</span></a>
+    </li>
+  </ul>
+  
+
+  <h3>OTHERS</h3>
+  <ul>
+      <li class="sidebar__item"><a href="#" class="sidebar__link">
+      <i class="fa-solid fa-users"></i><span class="wip">Users</span></a>
+    </li>
+  </ul>
+</aside>
+
+{% endblock%}

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stocks{% endblock %}
+
+{% block body %}
+<div class="page"> <!-- overall container for page -->
+    {% include 'common/sidebar.html.twig' %}
+
+    <main class="page__content">
+        <div class="page__content-overview">
+            <div class="fs-box total">
+                <h3>Total Coffee Stocks <i class="fa-solid fa-mug-saucer"></i></h3>
+                <p>{{ totalCoffee }}</p>
+            </div>
+
+            <div class="fs-box total">
+                <h3>Total Books Stocks <i class="fa-solid fa-book"></i></h3>
+                <p>{{ totalBooks }}</p>
+            </div>
+        </div>
+
+        <div class="page__content-details">
+            <div class="details-head">
+                <h1>Stocks</h1>
+                <a class="fs-button" href="{{ path('app_stocks_new') }}"><i class="fa-solid fa-plus"></i></a>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Product ID</th>
+                        <th>Quantity in Stock</th>
+                        <th>Last Restock Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stock in stocks %}
+                    <tr>
+                        <td>{{ stock.id }}</td>
+                        <td>{{ stock.product.id }}</td>
+                        <td>{{ stock.quantityInStock }}</td>
+                        <td>{{ stock.lastRestockDate ? stock.lastRestockDate|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>
+                            <a href="{{ path('app_stocks_show', {'id': stock.id}) }}"><i
+                                    class="fa-solid fa-eye actions-icon"></i></a>
+                            <a href="{{ path('app_stocks_edit', {'id': stock.id}) }}"><i
+                                    class="fa-solid fa-pen-to-square actions-icon"></i></a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5">No Records Found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+{% endblock %}

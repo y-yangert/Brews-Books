@@ -1,0 +1,56 @@
+/* links as button, create, new, etc*/
+.details-head a, .details-footer a, .fs-button.save {
+    background-color: var(--new-light-btn-color);
+    color: var(--base-color);
+    border: none;
+    text-decoration: none;
+    white-space: nowrap;
+
+    display: flex;
+    align-items: baseline;
+    gap: .5em;
+    box-shadow: 0 2px 4px var(--inactive-color);
+}
+
+.details-head a:hover, .details-footer a:hover, .fs-button.save:hover {
+    background-color: var(--new-btn-color);
+    color: var(--base-color);
+}
+
+/* back to list */
+.details-head .back-btn {
+    color: var(--base-color);
+    background-color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+}
+
+.details-head .back-btn:hover {
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.details-footer .edit-btn {
+    color: var(--secondary-color);
+    background-color: transparent;
+    border: 1px solid var(--secondary-color);
+}
+
+.details-footer .edit-btn:hover {
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    border: 1px solid var(--secondary-color);
+}
+
+/* delete */
+.del-btn {
+    color: var(--error-msg-color);
+    background-color: transparent;
+    border: 1px solid var(--error-msg-color);
+}
+
+.del-btn:hover {
+    color: var(--error-msg-color);
+    background-color: var(--error-bg-color);
+    border: 1px solid var(--error-msg-color);
+}

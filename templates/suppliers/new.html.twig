@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Suppliers{% endblock %}
+
+{% block body %}
+{% form_theme form 'common/error.html.twig' %}
+
+<div class="page"> <!-- overall container for page -->
+    {% include 'common/sidebar.html.twig' %}
+
+    <main class="page__content">
+
+        <div class="details-head">
+            <h1>Add New Supplier</h1>
+            <a class="fs-button back-btn" href="{{ path('app_suppliers_index') }}"><i class="fa-solid fa-arrow-left"></i>back to list</a>
+        </div>
+        {{ include ('suppliers/_form.html.twig') }}
+    </main>
+</div>
+{% endblock %}

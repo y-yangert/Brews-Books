@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}Enter Product Details | Book {% endblock %}
+
+{% block body %}
+
+<div class="page"> <!-- overall container for page -->
+    {% include 'common/sidebar.html.twig' %}
+
+    <main class="page__content">
+
+        <div class="details-head">
+            <h1>Edit Book Details</h1>
+            <a class="fs-button back-btn" href="{{ path('app_book_details_index') }}"><i
+                    class="fa-solid fa-arrow-left"></i>back to list</a>
+        </div>
+
+        {% from 'common/error.html.twig' import form_errors %}
+        {{ form_start(form, { 'attr': { 'class': 'fs-form' } }) }}
+        {{ form_errors(form) }}
+        {{ include ('book_details/_form.html.twig') }}
+
+        <div class="fs-button-group">
+            <button class="fs-button save" type="submit">Save</button>
+        </div>
+        {{ form_end(form) }}
+
+    </main>
+</div>
+{% endblock %}
