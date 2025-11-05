@@ -1,93 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard | Brew&Books{% endblock %}
+{% block title %}Hello DashboardController!{% endblock %}
 
 {% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
 
-<div class="page">
-    {% include 'common/sidebar.html.twig' %}
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    <main>
-        <section class="page__content">
-
-            <div class="page__content-details">
-                <div class="details-head">
-                    <h1>Welcome to Brews&Books</h1>
-                </div>
-            </div>
-
-            <div class="page__content-details">
-                <div class="page__content-overview">
-                <div class="fs-box total">
-                    <h3>Total Products <i class="fa-solid fa-box"></i></h3>
-                    <p>{{ totalProducts }}</p>
-                </div>
-                <div class="fs-box total">
-                    <h3>Books <i class="fa-solid fa-book"></i></h3>
-                    <p>{{ totalBooks }}</p>
-                </div>
-                <div class="fs-box total">
-                    <h3>Coffee <i class="fa-solid fa-mug-saucer"></i></h3>
-                    <p>{{ totalCoffee }}</p>
-                </div>
-                <div class="fs-box total">
-                    <h3>Suppliers <i class="fa-solid fa-truck"></i></h3>
-                    <p>{{ totalBundleComp }}</p>
-                </div>
-            </div>
-
-            <div class="card-info-details">
-                <div class="left">
-
-                    <div class="top" style="margin-top: 2em;">
-                        <div class="details-head" style="align-items: baseline;">
-                            <h3 style="margin: 0;"> Recent Updates </h3>
-                            <div class="fs-button-group display-flex">
-                                <a href="/products/new" class="fs-button btn--primary">Add New Product</a>
-                                <a href="/products" class="fs-button">View Products</a>
-                                <a href="/stocks" class=" fs-button">Manage Stocks</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="table">
-                        {% if recentLogs is not empty %}
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>When</th>
-                                    <th>Action</th>
-                                    <th>Table</th>
-                                    <th>ID</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for log in recentLogs %}
-                                <tr>
-                                    <td>{{ log.occurredAt|date('Y-m-d H:i', 'Asia/Manila') }}</td>
-                                    <td>{{ log.action|capitalize }}</td>
-                                    <td>{{ log.entityName }}</td>
-                                    <td>{{ log.entityId }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                        {% else %}
-                        <p>No recent updates.</p>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div class="right">
-                    <div class="top" style="margin-top: 1em;">
-                    </div>
-                    <div class="fs-box total" style="background-color: var(--inactive-color);">
-                        <em>Notification for reorder levels</em>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code>C:/Users/i3-Bing/Desktop/WebDev/Brew and Books/src/Controller/DashboardController.php</code></li>
+        <li>Your template at <code>C:/Users/i3-Bing/Desktop/WebDev/Brew and Books/templates/dashboard/index.html.twig</code></li>
+    </ul>
 </div>
-
 {% endblock %}
