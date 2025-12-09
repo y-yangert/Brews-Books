@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CoffeeDetailsType extends AbstractType
 {
@@ -22,10 +23,23 @@ class CoffeeDetailsType extends AbstractType
                     'Dark' => 'Dark',
                 ],
                 'placeholder' => 'Choose roast level',
+                'constraints' => [
+                    new Assert\NotBlank(),
+                ],
             ])
 
-            ->add('weight_per_package')
-            ->add('flavor_description')
+            ->add('weight_per_package', null, [
+                'constraints' => [
+                    new Assert\NotBlank(),
+                    new Assert\Positive(),
+                ],
+            ])
+            ->add('flavor_description', null, [
+                'required' => false,
+                'constraints' => [
+                    new Assert\Length(['max' => 1000]),
+                ],
+            ])
             ->add('product', EntityType::class, [
                 'class' => Products::class,
                 'choice_label' => 'name',

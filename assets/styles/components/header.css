@@ -1,70 +1,34 @@
-
 /*HEADER*/
 
-header {
-    position: relative;
-}
-
-.navbar {
-    width: 100%;
-    height: 60px;
-    max-width: 1200px;
-    margin: 0 auto;
+.header__logo {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: baseline;
+    gap: 0.75em;
+    user-select: none;
+    cursor: default;
 }
 
-.navbar .links {
-    display: flex;
-    width: 100%;
-    margin-left: 3rem;
-    gap: 2rem;
-}
-
-.navbar .login {
-    align-items: center;
-    display: inline-flex;
-    gap: .5rem;
-}
-
-.navbar .toggle-btn {
-    color: rgb(111, 26, 7);
-    cursor: pointer;
-    display: none;
-}
-
-.navbar .cart-btn {
-    color: rgb(111, 26, 7);
-    cursor: pointer;
-}
-
-.action-btn {
-    background-color: rgb(168, 116, 62);
-    color: rgb(247, 243, 227);
-    padding: .5rem 1rem;
-    border: none;
-    outline: none;
-    border-radius: 20px;
-    font-size: .8rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: scale .2 ease;
-}
-
-.action-btn:hover {
-    background-color: rgb(111, 26, 7);
-    color: rgb(247, 243, 227);
-    scale: 1.05;
-}
-
-.action-btn:active {
-    scale: 0.95;
-}
-
-#logo {
-    display: inline-block;
-    flex: 1 0 auto;
+/* Logo icon */
+#logo-icon {
+    width: 30px;
     height: 30px;
-    width: 320px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.1));
+}
+
+/* Logo text */
+.header__logo h1 {
+    font-size: 1.3em;
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+    user-select: text;
+}
+
+.header-right {
+    display: flex;
+    width: auto;
+    gap: 1.5rem;
+    justify-content: space-between;
 }

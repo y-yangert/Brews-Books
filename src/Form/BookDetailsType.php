@@ -8,14 +8,25 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class BookDetailsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('ISBN')
-            ->add('pages')
+            ->add('ISBN', null, [
+                'constraints' => [
+                    new Assert\NotBlank(),
+                    new Assert\Length(['max' => 20]),
+                ],
+            ])
+            ->add('pages', null, [
+                'constraints' => [
+                    new Assert\NotBlank(),
+                    new Assert\Positive(),
+                ],
+            ])
             ->add('product', EntityType::class, [
                 'class' => Products::class,
                 'choice_label' => 'name',

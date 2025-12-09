@@ -1,26 +1,35 @@
-{% from 'common/error.html.twig' import field_errors %}
+{% if form.product is defined %}
 <div class="fs-field">
     {{ form_label(form.product, 'Product ID', { 'label_attr': {'class': 'fs-label'} }) }}
+    {% if form.product.vars.errors|length > 0 %}
+    <div class="fs-error-message">{{ form_errors(form.product) }}</div>
+    {% endif %}
     {{ form_widget(form.product, { 'attr': {'class': 'fs-input'} }) }}
-    {{ field_errors(form.product) }}
 </div>
+{% endif %}
 
 <div class="fs-field">
     {{ form_label(form.roast_level, 'Roast Level', { 'label_attr': {'class': 'fs-label'} }) }}
-    {{ form_widget(form.roast_level, { 'attr': {'class': 'fs-input', 'placeholder': 'Enter roast level'} }) }}
-    {{ field_errors(form.roast_level) }}
+    {% if form.roast_level.vars.errors|length > 0 %}
+    <div class="fs-error-message">{{ form_errors(form.roast_level) }}</div>
+    {% endif %}
+    {{ form_widget(form.roast_level, { 'attr': {'class': 'fs-select', 'placeholder': 'Enter roast level'} }) }}
 </div>
 
 <div class="fs-field">
-    {{ form_label(form.weight_per_package, 'Weight per Package', { 'label_attr': {'class': 'fs-label'} }) }}
+    {{ form_label(form.weight_per_package, 'Weight per Package (g)', { 'label_attr': {'class': 'fs-label'} }) }}
+    {% if form.weight_per_package.vars.errors|length > 0 %}
+    <div class="fs-error-message">{{ form_errors(form.weight_per_package) }}</div>
+    {% endif %}
     {{ form_widget(form.weight_per_package, { 'attr': {'class': 'fs-input', 'placeholder': 'Enter weight per package'}
     }) }}
-    {{ field_errors(form.weight_per_package) }}
 </div>
 
 <div class="fs-field">
     {{ form_label(form.flavor_description, 'Flavor Description', { 'label_attr': {'class': 'fs-label'} }) }}
-    {{ form_widget(form.flavor_description, { 'attr': {'class': 'fs-input', 'placeholder': 'Enter flavor description'}
-    }) }}
-    {{ field_errors(form.flavor_description) }}
+    {% if form.flavor_description.vars.errors|length > 0 %}
+    <div class="fs-error-message">{{ form_errors(form.flavor_description) }}</div>
+    {% endif %}
+    {{ form_widget(form.flavor_description, { 'attr': {'class': 'fs-textarea', 'placeholder': 'Enter flavor
+    description'} }) }}
 </div>

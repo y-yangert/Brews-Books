@@ -5,23 +5,19 @@
 {% block body %}
 {% form_theme form 'common/error.html.twig' %}
 
-<div class="page"> <!-- overall container for page -->
-    {% include 'common/sidebar.html.twig' %}
+<main class="page__content">
+    <div class="details-head">
+        <h1>Enter Product Details | Coffee</h1>
+    </div>
 
-    <main class="page__content">
-        <div class="details-head">
-            <h1>Enter Product Details | Coffee</h1>
-        </div>
+    {{ form_start(form, { 'attr': { 'class': 'fs-form' } }) }}
+    {{ form_errors(form) }}
+    {{ include ('coffee_details/_form.html.twig') }}
+    <div class="fs-button-group">
+        <button class="fs-button save" type="submit">Save</button>
+    </div>
 
-        {% from 'common/error.html.twig' import form_errors %}
-        {{ form_start(form, { 'attr': { 'class': 'fs-form' } }) }}
-        {{ form_errors(form) }}
-        {{ include ('coffee_details/_form.html.twig') }}
-        <div class="fs-button-group">
-            <button class="fs-button save" type="submit">Save</button>
-        </div>
+    {{ form_end(form) }}
+</main>
 
-        {{ form_end(form) }}
-    </main>
-</div>
 {% endblock %}

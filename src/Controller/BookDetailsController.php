@@ -36,6 +36,13 @@ final class BookDetailsController extends AbstractController
         $form = $this->createForm(BookDetailsType::class, $bookDetail);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && !$form->isValid()) {
+            return $this->render('book_details/new.html.twig', [
+                'book_detail' => $bookDetail,
+                'form' => $form,
+            ]);
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($bookDetail);
             $entityManager->flush();

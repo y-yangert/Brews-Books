@@ -2,9 +2,11 @@
     background-color: var(--primary-color);
     min-height: 100vh;
     display: grid;
+    grid-template-rows: 60px auto;
     grid-template-columns: auto 1fr;
-    grid-template-areas: 
-    "sidebar main";
+    grid-template-areas:
+        "header header"
+        "sidebar main";
 }
 
 aside {
@@ -14,16 +16,23 @@ aside {
 main {
     grid-area: main;
     margin-top: min(30px, 7%);
-    padding: min(30px, 7%);
+    padding: min(50px, 7%);
     background-color: var(--base-color);
     border-top-left-radius: .5rem;
     box-shadow: 0 2px 4px var(--inactive-color);
 }
 
+header {
+    grid-area: header;
+    padding: min(20px, 10px) 50px;
+    align-self: center;
+}
+
+
 .page__content {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 3rem;
     font-size: 14px;
     line-height: 1.5;
 }
@@ -31,17 +40,22 @@ main {
 .page__content-overview {
     display: flex;
     width: 100%;
-    justify-content: space-between; /* or start, center, etc. */
-    gap: 1%; /* space between flex items */
-    flex-wrap: wrap; /* allow wrapping on smaller screens */
+    justify-content: space-between;
+    /* or start, center, etc. */
+    gap: 1%;
+    /* space between flex items */
+    flex-wrap: wrap;
+    /* allow wrapping on smaller screens */
 }
 
 .fs-box.total {
     background-color: var(--secondary-color);
     box-shadow: none;
-    flex: 1 1 23%; /* grow, shrink, basis */
+    flex: 1 1 23%;
+    /* grow, shrink, basis */
     padding: 1em;
-    margin-right: 1%; /* optional for spacing */
+    margin-right: 1%;
+    /* optional for spacing */
 }
 
 .fs-box.total h3 {
@@ -52,20 +66,21 @@ main {
     font-weight: 600;
 }
 
-.fs-box.total i,.fs-box.total p {
+.fs-box.total i,
+.fs-box.total p {
     color: var(--base-color);
 }
 
 .page__content-details {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 2em;
 }
 
 .details-head {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
 }
 
 .details-footer {

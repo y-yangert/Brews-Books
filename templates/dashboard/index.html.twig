@@ -1,20 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DashboardController!{% endblock %}
+{% block title %}Dashboard | Brew&Books{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<main>
+    <section class="page__content">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/i3-Bing/Desktop/WebDev/Brew and Books/src/Controller/DashboardController.php</code></li>
-        <li>Your template at <code>C:/Users/i3-Bing/Desktop/WebDev/Brew and Books/templates/dashboard/index.html.twig</code></li>
-    </ul>
-</div>
+        <div class="page__content-details" style="align-items: center;">
+            <div class="details-head">
+                <h1>Welcome, </h1>
+            </div>
+        </div>
+
+        <div class="page__content-details">
+            <div class="page__content-overview">
+                {% include 'common/total_count.html.twig' %}
+            </div>
+
+            {% if lowStockProducts is not empty %}
+            <div class="low-stock-alert">
+                <i class="fa-solid fa-exclamation-triangle"></i>
+                <div class="low-stock-alert-content">
+                    <h3>Low Stock Alert</h3>
+                    <p>{{ lowStockProducts|length }} item(s) are running low and need restocking soon</p>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="details-head" style="align-items: baseline;">
+                <h3 style="margin: 0;"> Recent Updates </h3>
+            </div>
+            <div class="card-info-details">
+
+                <div class="table">
+                    {% if recentLogs is not empty %}
+                    <table class="table datatable" id="recent-logs-table">
+                        <thead>
+                            <tr>
+                                <th>When</th>
+                                <th>Action</th>
+                                <th>Table</th>
+                                <th>ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for log in recentLogs %}
+                            <tr>
+                                <td>{{ log.occurredAt|date('Y-m-d H:i', 'Asia/Manila') }}</td>
+                                <td>{{ log.action|capitalize }}</td>
+                                <td>{{ log.entityName }}</td>
+                                <td>{{ log.entityId }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <p>No recent updates.</p>
+                    {% endif %}
+                </div>
+            </div>
+    </section>
+</main>
+
 {% endblock %}

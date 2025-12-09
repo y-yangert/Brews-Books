@@ -3,17 +3,15 @@
 {% block title %}Products | Book Details{% endblock %}
 
 {% block body %}
-<div class="page"> <!-- overall container for page -->
-    {% include 'common/sidebar.html.twig' %}
 
-    <main class="page__content">
-        
-        <div class="page__content-details">
-            <div class="details-head">
-                <h1>Books</h1>
+<main class="page__content">
+
+    <div class="page__content-details">
+        <div class="details-head">
+            <h1>Books</h1>
         </div>
 
-        <table class="table">
+        <table class="table datatable">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -24,26 +22,26 @@
                 </tr>
             </thead>
             <tbody>
-            {% for book_detail in book_details %}
+                {% for book_detail in book_details %}
                 <tr>
                     <td>{{ book_detail.id }}</td>
                     <td>{{ book_detail.product.id }}</td>
                     <td>{{ book_detail.ISBN }}</td>
                     <td>{{ book_detail.pages }}</td>
                     <td>
-                        <a href="{{ path('app_book_details_show', {'id': book_detail.id}) }}"><i class="fa-solid fa-eye actions-icon"></i></a>
-                        <a href="{{ path('app_book_details_edit', {'id': book_detail.id}) }}"><i class="fa-solid fa-pen-to-square actions-icon"></i></a>
+                        <a href="{{ path('app_book_details_show', {'id': book_detail.id}) }}"><i
+                                class="fa-solid fa-eye actions-icon"></i></a>
+                        <a href="{{ path('app_book_details_edit', {'id': book_detail.id}) }}"><i
+                                class="fa-solid fa-pen-to-square actions-icon"></i></a>
                     </td>
                 </tr>
-            {% else %}
+                {% else %}
                 <tr>
                     <td colspan="4">No Records Found</td>
                 </tr>
-            {% endfor %}
+                {% endfor %}
             </tbody>
         </table>
-    </main>
-</div>
+</main>
 
-    
 {% endblock %}

@@ -1,25 +1,23 @@
-{% from 'common/error.html.twig' import field_errors %}
-{{ form_start(form, { 'attr': { 'class': 'fs-form', 'novalidate': 'novalidate' } }) }}
-
 <div class="fs-field">
     {{ form_label(form.name, 'Name', { 'label_attr': {'class': 'fs-label'} }) }}
+    {% if form.name.vars.errors|length > 0 %}
+    <div class="fs-error-message">{{ form_errors(form.name) }}</div>
+    {% endif %}
     {{ form_widget(form.name, { 'attr': {'class': 'fs-input', 'placeholder': 'Enter supplier name'} }) }}
-    {{ field_errors(form.name) }}
 </div>
 
 <div class="fs-field">
     {{ form_label(form.contact_info, 'Contact Info', { 'label_attr': {'class': 'fs-label'} }) }}
+    {% if form.contact_info.vars.errors|length > 0 %}
+    <div class="fs-error-message">{{ form_errors(form.contact_info) }}</div>
+    {% endif %}
     {{ form_widget(form.contact_info, { 'attr': {'class': 'fs-input', 'placeholder': 'Enter contact information'} }) }}
-    {{ field_errors(form.contact_info) }}
 </div>
 
 <div class="fs-field">
     {{ form_label(form.address, 'Address', { 'label_attr': {'class': 'fs-label'} }) }}
+    {% if form.address.vars.errors|length > 0 %}
+    <div class="fs-error-message">{{ form_errors(form.address) }}</div>
+    {% endif %}
     {{ form_widget(form.address, { 'attr': {'class': 'fs-input', 'placeholder': 'Enter address'} }) }}
-    {{ field_errors(form.address) }}
 </div>
-
-<div class="fs-button-group">
-    <button class="fs-button save" type="submit">Add Supplier</button>
-</div>
-{{ form_end(form) }}

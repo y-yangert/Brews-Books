@@ -29,6 +29,13 @@ final class ProductCategoriesController extends AbstractController
         $form = $this->createForm(ProductCategoriesType::class, $productCategory);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && !$form->isValid()) {
+            return $this->render('product_categories/new.html.twig', [
+                'product_category' => $productCategory,
+                'form' => $form,
+            ]);
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($productCategory);
             $entityManager->flush();

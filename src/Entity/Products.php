@@ -5,9 +5,10 @@ namespace App\Entity;
 use App\Repository\ProductsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
-#[\Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity('sku_code', message: 'This SKU code is already in use.')]
+#[UniqueEntity(fields: ['sku_code'], errorPath: 'sku_code', message: 'This SKU code is already in use.')]
 class Products
 {
     #[ORM\Id]
@@ -141,7 +142,7 @@ class Products
 
     public function setSkuCode(string $sku_code): static
     {
-        $this->sku_code = $sku_code;
+        $this->sku_code = strtoupper($sku_code);
 
         return $this;
     }
@@ -223,7 +224,7 @@ class Products
         return $this->stocks;
     }
 
-    public function setStocks(?Stocks $bookDetails): self
+    public function setStocks(?Stocks $stocks): self
     {
         // set bidirectional relationship
         $this->stocks = $stocks;

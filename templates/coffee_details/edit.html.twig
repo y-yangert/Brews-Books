@@ -4,26 +4,24 @@
 
 {% block body %}
 
-<div class="page"> <!-- overall container for page -->
-    {% include 'common/sidebar.html.twig' %}
+{% block body %}
 
-    <main class="page__content">
-        <div class="details-head">
-            <h1>Edit Product Details | Coffee</h1>
-            <a class="fs-button back-btn" href="{{ path('app_coffee_details_index') }}"><i
-                    class="fa-solid fa-arrow-left"></i>back to list</a>
-        </div>
+<main class="page__content">
+    <div class="details-head">
+        <h1>Edit Product Details | Coffee</h1>
+        <a class="fs-button back-btn" href="{{ path('app_coffee_details_index') }}"><i
+                class="fa-solid fa-arrow-left"></i>back to list</a>
+    </div>
 
-        {% from 'common/error.html.twig' import form_errors %}
-        {{ form_start(form, { 'attr': { 'class': 'fs-form' } }) }}
-        {{ form_errors(form) }}
-        {{ include ('coffee_details/_form.html.twig') }}
+    {{ form_start(form, { 'attr': { 'class': 'fs-form' } }) }}
+    {{ form_errors(form) }}
+    {{ include ('coffee_details/_form.html.twig') }}
 
-        <div class="fs-button-group">
-            <button class="fs-button save" type="submit">Save</button>
-        </div>
+    <div class="fs-button-group">
+        <button class="fs-button save" type="submit">Save</button>
+    </div>
 
-        {{ form_end(form) }}
-    </main>
-</div>
+    {{ form_end(form) }}
+</main>
+
 {% endblock %}

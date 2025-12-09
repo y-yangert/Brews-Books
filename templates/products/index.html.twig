@@ -3,108 +3,247 @@
 {% block title %}Products | Brews&Books{% endblock %}
 
 {% block body %}
-<div class="page"> <!-- overall container for page -->
-    {% include 'common/sidebar.html.twig' %}
 
-    <main class="page__content">
-        <div class="page__content-overview">
-            <div class="fs-box total">
-                <h3>Total Products <i class="fa-solid fa-box"></i></h3>
-                <p>{{ totalProducts }}</p>
-            </div>
+<main class="page__content">
 
-            <div class="fs-box total">
-                <h3>Books <i class="fa-solid fa-book"></i></h3>
-                <p>{{ totalBooks }}</p>
-            </div>
+    <div class="page__content-overview">
+        {% include 'common/total_count.html.twig' %}
+    </div>
 
-            <div class="fs-box total">
-                <h3>Coffee <i class="fa-solid fa-mug-saucer"></i></h3>
-                <p>{{ totalCoffee }}</p>
-            </div>
-
-            <div class="fs-box total">
-                <h3>Bundle Components <i class="fa-solid fa-boxes-stacked"></i></h3>
-                <p>{{ totalBundleComp }}</p>
+    <div class="page__content-details">
+        {% if lowStockProducts is not empty %}
+        <div class="low-stock-alert">
+            <i class="fa-solid fa-exclamation-triangle"></i>
+            <div class="low-stock-alert-content">
+                <h3>Low Stock Alert</h3>
+                <p>{{ lowStockProducts|length }} items are running low and need restocking soon</p>
             </div>
         </div>
+        {% endif %}
 
-        <div class="page__content-details">
-
-            <div class="details-head">
+        <div class="details-head" style="justify-content: space-between;">
+            <div class="info-row" style="gap: .2em">
                 <h1>Products</h1>
-                <a class="fs-button" href="{{ path('app_products_new') }}"><i class="fa-solid fa-plus"></i></a>
+                <p style="font-weight: 100;">Manage your books and coffee products</p>
+            </div>
+            <a class="fs-button" href="{{ path('app_products_new') }}"><i class="fa-solid fa-plus"></i></a>
+        </div>
+
+        <div class="product-tabs">
+            <div class="tab-nav">
+                <button class="tab-button active" onclick="openTab(event, 'overview-tab')">All Products</button>
+                <button class="tab-button" onclick="openTab(event, 'book-details-tab')">Books</button>
+                <button class="tab-button" onclick="openTab(event, 'coffee-details-tab')">Coffee</button>
             </div>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Cost per Unit</th>
-                        <th>Price per Unit</th>
-                        <th>Sku Code</th>
-                        <th>Quantity in Stock</th>
-                        <th>Reorder Level</th>
-                        <th>Product Category</th>
-                        <th>Status</th>
-                        <!-- <th>Image</th> -->
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for product in products %}
-                    <tr>
-                        <td>{{ product.id }}</td>
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.description }}</td>
-                        <td>{{ product.costPerUnit }}</td>
-                        <td>{{ product.pricePerUnit }}</td>
-                        <td>{{ product.skuCode }}</td>
-                        <td>
-                            {% if product.stocks is not null %}
-                            <span class="value">{{ product.stocks.quantityInStock }}</span>
-                            {%else%}
-                            <em>No stock</em>
-                            {%endif%}
-                        </td>
-                        <td>{{ product.reorderLevel }}</td>
-                        <td>{{ product.ProductCategories.name }}</td>
-                        <td>
-                            <span
-                                class="{% if product.isActive %} active-status {% else %} inactive-status {% endif %}">
-                                {{ product.isActive ? 'Active' : 'Inactive' }}
-                            </span>
-                        </td>
+            <div id="overview-tab" class="tab-content active">
+                <table class="table datatable" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Cost per Unit</th>
+                            <th>Price per Unit</th>
+                            <th>Sku Code</th>
+                            <th>Quantity in Stock</th>
+                            <th>Reorder Level</th>
+                            <th>Product Category</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                        {% set isLowStock = product.stocks is not null and product.stocks.quantityInStock <=
+                            product.reorderLevel or product.stocks is null %} <tr {% if isLowStock
+                            %}class="low-stock-row" {% endif %}>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.description }}</td>
+                            <td>{{ product.costPerUnit }}</td>
+                            <td>{{ product.pricePerUnit }}</td>
+                            <td>{{ product.skuCode }}</td>
+                            <td>
+                                {% if product.stocks is not null %}
+                                <span class="value">{{ product.stocks.quantityInStock }}</span>
+                                {%else%}
+                                <em>No stock</em>
+                                {%endif%}
+                            </td>
+                            <td>{{ product.reorderLevel }}</td>
+                            <td>{{ product.ProductCategories.name }}</td>
+                            <td>
+                                <span
+                                    class="{% if product.isActive %} active-status {% else %} inactive-status {% endif %}">
+                                    {{ product.isActive ? 'Active' : 'Inactive' }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_products_show', {'id': product.id}) }}"><i
+                                        class="fa-solid fa-eye actions-icon"></i></a>
+                                <a href="{{ path('app_products_edit', {'id': product.id}) }}"><i
+                                        class="fa-solid fa-pen-to-square actions-icon"></i></a>
+                            </td>
+                            </tr>
+                            {% else %}
+                            <tr class="">
+                                <td colspan="11">No Records Found</td>
+                            </tr>
+                            {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
+            <div id="book-details-tab" class="tab-content">
+                <table class="table datatable" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Name</th>
+                            <th>ISBN</th>
+                            <th>Pages</th>
+                            <th>Price per Unit</th>
+                            <th>Quantity in Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set hasBooks = false %}
+                        {% for product in products %}
+                        {% if product.ProductCategories.id == 1 %}
+                        {% set hasBooks = true %}
+                        {% set isLowStock = product.stocks is not null and product.stocks.quantityInStock <=
+                            product.reorderLevel or product.stocks is null %} <tr {% if isLowStock
+                            %}class="low-stock-row" {% endif %}>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>
+                                {% if product.bookDetails is not null %}
+                                {{ product.bookDetails.ISBN }}
+                                {% else %}
+                                <em>No ISBN</em>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if product.bookDetails is not null %}
+                                {{ product.bookDetails.pages }}
+                                {% else %}
+                                <em>No pages</em>
+                                {% endif %}
+                            </td>
+                            <td>{{ product.pricePerUnit }}</td>
+                            <td>
+                                {% if product.stocks is not null %}
+                                <span class="value">{{ product.stocks.quantityInStock }}</span>
+                                {%else%}
+                                <em>No stock</em>
+                                {%endif%}
+                            </td>
+                            <td>
+                                <span
+                                    class="{% if product.isActive %} active-status {% else %} inactive-status {% endif %}">
+                                    {{ product.isActive ? 'Active' : 'Inactive' }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_products_show', {'id': product.id}) }}"><i
+                                        class="fa-solid fa-eye actions-icon"></i></a>
+                                <a href="{{ path('app_products_edit', {'id': product.id}) }}"><i
+                                        class="fa-solid fa-pen-to-square actions-icon"></i></a>
+                            </td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                            {% if not hasBooks %}
+                            <tr>
+                                <td colspan="8">No Books Found</td>
+                            </tr>
+                            {% endif %}
+                    </tbody>
+                </table>
+            </div>
 
-                        <!-- {% if product.image %}
-                        <td>
-                            <a href="{{ asset('uploads/products/' ~ product.image) }}" target="_blank">
-                                <img src="{{ asset('uploads/products/' ~ product.image) }}">
-                            </a>
-                        </td>
-
-                        {% else %}
-                        No image
-                        {% endif %} -->
-
-                        <td>
-                            <a href="{{ path('app_products_show', {'id': product.id}) }}"><i
-                                    class="fa-solid fa-eye actions-icon"></i></a>
-                            <a href="{{ path('app_products_edit', {'id': product.id}) }}"><i
-                                    class="fa-solid fa-pen-to-square actions-icon"></i></a>
-                        </td>
-                    </tr>
-                    {% else %}
-                    <tr class="">
-                        <td colspan="8">No Records Found</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <div id="coffee-details-tab" class="tab-content">
+                <table class="table datatable" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Name</th>
+                            <th>Roast Level</th>
+                            <th>Weight per Package (g)</th>
+                            <th>Flavor Description</th>
+                            <th>Price per Unit</th>
+                            <th>Quantity in Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set hasCoffee = false %}
+                        {% for product in products %}
+                        {% if product.ProductCategories.id == 2 %}
+                        {% set hasCoffee = true %}
+                        {% set isLowStock = product.stocks is not null and product.stocks.quantityInStock <=
+                            product.reorderLevel or product.stocks is null %} <tr {% if isLowStock
+                            %}class="low-stock-row" {% endif %}>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>
+                                {% if product.coffeeDetails is not null %}
+                                {{ product.coffeeDetails.roastLevel }}
+                                {% else %}
+                                <em>No roast level</em>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if product.coffeeDetails is not null %}
+                                {{ product.coffeeDetails.weightPerPackage }}
+                                {% else %}
+                                <em>No weight</em>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if product.coffeeDetails is not null %}
+                                {{ product.coffeeDetails.flavorDescription }}
+                                {% else %}
+                                <em>No description</em>
+                                {% endif %}
+                            </td>
+                            <td>{{ product.pricePerUnit }}</td>
+                            <td>
+                                {% if product.stocks is not null %}
+                                <span class="value">{{ product.stocks.quantityInStock }}</span>
+                                {%else%}
+                                <em>No stock</em>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span
+                                    class="{% if product.isActive %} active-status {% else %} inactive-status {% endif %}">
+                                    {{ product.isActive ? 'Active' : 'Inactive' }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_products_show', {'id': product.id}) }}"><i
+                                        class="fa-solid fa-eye actions-icon"></i></a>
+                                <a href="{{ path('app_products_edit', {'id': product.id}) }}"><i
+                                        class="fa-solid fa-pen-to-square actions-icon"></i></a>
+                            </td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                            {% if not hasCoffee %}
+                            <tr>
+                                <td colspan="9">No Coffee Products Found</td>
+                            </tr>
+                            {% endif %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </main>
-</div>
+    </div>
+</main>
+
 {% endblock %}

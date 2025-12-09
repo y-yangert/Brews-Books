@@ -11,15 +11,16 @@
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('styles/global/utilities.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/global/table.css') }}">
-    <link rel="stylesheet" href="{{ asset('styles/global/button.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/global/components.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/global/show.css') }}">
-    <link rel="stylesheet" href="{{ asset('styles/global/form.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/components/header.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/components/page.css') }}">
-    <link rel="stylesheet" href="{{ asset('styles/components/sidebar_admin.css')}}">
-    <link rel="stylesheet" href="{{ asset('styles/about-style.css')}}">
+    <link rel="stylesheet" href="{{ asset('styles/components/sidebar.css')}}">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
 
     {% endblock %}
 
@@ -28,13 +29,96 @@
     {{ importmap('app') }}
     {% endblock %}
     {{ encore_entry_script_tags('app') }}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+    <script>
+        if (typeof jQuery !== 'undefined') {
+            jQuery(document).ready(function ($) {
+
+                $('table.datatable').DataTable({
+                    responsive: true,
+                    pageLength: 10,
+                    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                    order: [],
+                    language: {
+                        search: "Search:",
+                        lengthMenu: "Show _MENU_ entries",
+                        info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                        infoEmpty: "Showing 0 to 0 of 0 entries",
+                        infoFiltered: "(filtered from _MAX_ total entries)",
+                        paginate: {
+                            first: "First",
+                            last: "Last",
+                            next: "Next",
+                            previous: "Previous"
+                        }
+                    }
+                });
+            });
+        } else {
+
+            window.addEventListener('load', function () {
+                if (typeof jQuery !== 'undefined') {
+                    jQuery(document).ready(function ($) {
+                        $('table.datatable').DataTable({
+                            responsive: true,
+                            pageLength: 10,
+                            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                            order: [],
+                            language: {
+                                search: "Search:",
+                                lengthMenu: "Show _MENU_ entries",
+                                info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                                infoEmpty: "Showing 0 to 0 of 0 entries",
+                                infoFiltered: "(filtered from _MAX_ total entries)",
+                                paginate: {
+                                    first: "First",
+                                    last: "Last",
+                                    next: "Next",
+                                    previous: "Previous"
+                                }
+                            }
+                        });
+                    });
+                }
+            });
+        }
+    </script>
+
+    <!-- tabs -->
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
     {% endblock %}
 
 </head>
 
 <body>
-    {% block body %}
-    {% endblock %}
+    <div class="page">
+        {% include 'common/header.html.twig' %}
+        {% include 'common/sidebar.html.twig' %}
+
+        {% block body %}
+        {% endblock %}
+    </div>
 </body>
 
 </html>

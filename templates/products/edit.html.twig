@@ -3,26 +3,58 @@
 {% block title %}Edit Products{% endblock %}
 
 {% block body %}
-<div class="page"> <!-- overall container for page -->
-    {% include 'common/sidebar.html.twig' %}
+{% block body %}
 
-    <main class="page__content">
+<main class="page__content">
+    {% for message in app.flashes('success') %}
+    <div class="alert success-alert">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>{{ message }}</span>
+    </div>
+    {% endfor %}
 
-        <div class="details-head">
-            <h1>Edit Product Details</h1>
-            <a class="fs-button back-btn" href="{{ path('app_products_index') }}"><i
-                    class="fa-solid fa-arrow-left"></i>back to list</a>
-        </div>
+    <div class="details-head">
+        <h1>Edit Product Details</h1>
+        <a class="fs-button back-btn" href="{{ path('app_products_index') }}"><i class="fa-solid fa-arrow-left"></i>back
+            to list</a>
+    </div>
 
-        {% from 'common/error.html.twig' import form_errors %}
-        {{ form_start(form, { 'attr': { 'class': 'fs-form', 'novalidate': 'novalidate' } }) }}
-        {{ form_errors(form) }}
-        {{ include ('products/_form.html.twig') }}
+    {# Start a single form for product and nested details forms #}
+    {{ form_start(form, { 'attr': { 'class': 'fs-form', 'novalidate': 'novalidate' } }) }}
+    {{ form_errors(form) }}
 
-        <div class="fs-button-group">
-            <button class="fs-button save" type="submit">Save</button>
-        </div>
-        {{ form_end(form) }}
-    </main>
-</div>
+    <h3>GENERAL PRODUCT INFORMATION</h3>
+    {{ include('products/_form.html.twig') }}
+
+    {# If this product is a book, render book details fields inside same form #}
+    {% if bookDetailsForm %}
+    <hr style="margin: 2em 0; border: 1px solid var(--inactive-color);">
+    {{ form_errors(bookDetailsForm) }}
+
+    <h3>BOOK DETAILS</h3>
+    {{ include('book_details/_form.html.twig', {'form': bookDetailsForm}) }}
+
+    {# render any remaining hidden fields (CSRF token etc.) for the details form #}
+    {{ form_rest(bookDetailsForm) }}
+    {% endif %}
+
+    {# If this product is coffee, render coffee details fields inside same form #}
+    {% if coffeeDetailsForm %}
+    <hr style="margin: 2em 0; border: 1px solid var(--inactive-color);">
+    {{ form_errors(coffeeDetailsForm) }}
+
+    <h3>COFFEE DETAILS</h3>
+    {{ include('coffee_details/_form.html.twig', {'form': coffeeDetailsForm}) }}
+
+    {# render any remaining hidden fields (CSRF token etc.) for the details form #}
+    {{ form_rest(coffeeDetailsForm) }}
+    {% endif %}
+
+    <div class="fs-button-group">
+        <button class="fs-button save" type="submit">Save All</button>
+    </div>
+
+    {{ form_end(form) }}
+</main>
+
 {% endblock %}

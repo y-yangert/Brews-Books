@@ -36,6 +36,13 @@ final class CoffeeDetailsController extends AbstractController
         $form = $this->createForm(CoffeeDetailsType::class, $coffeeDetail);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && !$form->isValid()) {
+            return $this->render('coffee_details/new.html.twig', [
+                'coffee_detail' => $coffeeDetail,
+                'form' => $form,
+            ]);
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($coffeeDetail);
             $entityManager->flush();

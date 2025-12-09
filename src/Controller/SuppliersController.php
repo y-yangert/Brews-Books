@@ -32,6 +32,13 @@ final class SuppliersController extends AbstractController
         $form = $this->createForm(SuppliersType::class, $supplier);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && !$form->isValid()) {
+            return $this->render('suppliers/new.html.twig', [
+            'product' => $supplier,
+            'form' => $form,
+        ]);
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($supplier);
             $entityManager->flush();
@@ -41,7 +48,7 @@ final class SuppliersController extends AbstractController
 
         return $this->render('suppliers/new.html.twig', [
             'supplier' => $supplier,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -67,7 +74,7 @@ final class SuppliersController extends AbstractController
 
         return $this->render('suppliers/edit.html.twig', [
             'supplier' => $supplier,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 

@@ -42,6 +42,13 @@ final class StocksController extends AbstractController
         $form = $this->createForm(StocksType::class, $stock);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && !$form->isValid()) {
+            return $this->render('stocks/new.html.twig', [
+                'stock' => $stock,
+                'form' => $form,
+            ]);
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($stock);
             $entityManager->flush();
