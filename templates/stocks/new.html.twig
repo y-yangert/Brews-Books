@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Stocks{% endblock %}
+
+{% block body %}
+
+<div class="page"> <!-- overall container for page -->
+    {% include 'common/sidebar.html.twig' %}
+
+    <main class="page__content">
+
+        {% from 'common/error.html.twig' import form_errors %}
+        {{ form_start(form, { 'attr': { 'class': 'fs-form' } }) }}
+        {{ form_errors(form) }}
+
+
+        <div class="details-head">
+            <h1>Add New Stocks</h1>
+            <a class="fs-button back-btn" href="{{ path('app_stocks_index') }}"><i
+                    class="fa-solid fa-arrow-left"></i>back to list</a>
+        </div>
+
+        {{ include('stocks/_form.html.twig') }}
+
+
+        <div class="fs-button-group">
+            <button class="fs-button save" type="submit">Add</button>
+        </div>
+        {{ form_end(form) }}
+        {% endblock %}

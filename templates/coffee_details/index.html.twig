@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product | Coffee Details{% endblock %}
+
+{% block body %}
+<div class="page"> <!-- overall container for page -->
+    {% include 'common/sidebar.html.twig' %}
+
+
+    <main class="page__content">
+        <div class="page__content-details">
+            <div class="details-head">
+                <h1>Coffee</h1>  
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Product ID</th>
+                        <th>Roast Level</th>
+                        <th>Weight per Package (g)</th>
+                        <th>Flavor Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for coffee_detail in coffee_details %}
+                    <tr>
+                        <td>{{ coffee_detail.id }}</td>
+                        <td>{{ coffee_detail.product.id }}</td>
+                        <td>{{ coffee_detail.roastLevel }}</td>
+                        <td>{{ coffee_detail.weightPerPackage }}</td>
+                        <td>{{ coffee_detail.flavorDescription }}</td>
+                        <td>
+                            <a href="{{ path('app_coffee_details_show', {'id': coffee_detail.id}) }}"><i class="fa-solid fa-eye actions-icon"></i></a>
+                            <a href="{{ path('app_coffee_details_edit', {'id': coffee_detail.id}) }}"><i class="fa-solid fa-pen-to-square actions-icon"></i></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+    

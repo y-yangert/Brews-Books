@@ -1,0 +1,12 @@
+{% from 'common/error.html.twig' import field_errors %}
+<div class="fs-field">
+    {{ form_label(form.name, 'Category Name', { 'label_attr': {'class': 'fs-label'} }) }}
+    {{ form_widget(form.name, { 'attr': {'class': 'fs-input', 'placeholder': 'Enter category name'} }) }}
+    {{ field_errors(form.name) }}
+</div>
+
+<div class="fs-field">
+    {{ form_label(form.description, 'Description', { 'label_attr': {'class': 'fs-label'} }) }}
+    {{ form_widget(form.description, { 'attr': {'class': 'fs-input', 'placeholder': 'Enter description'} }) }}
+    {{ field_errors(form.description) }}
+</div>

@@ -13,7 +13,7 @@ Encore
     .setPublicPath('/build')
     // only needed for CDN's or subdirectory deploy
     //.setManifestKeyPrefix('build/')
-     .enablePostCssLoader()
+    .enablePostCssLoader()
     /*
      * ENTRY CONFIG
      *
@@ -59,6 +59,16 @@ Encore
         config.corejs = '3.38';
     })
 
+    .configureDevServerOptions(options => {
+        options.liveReload = true;  // Enable live reload for PHP/Twig changes
+        options.static = {
+            watch: false,  // Disable default static watch (handled by watcher below)
+        };
+        options.watchFiles = {
+            paths: ['src/**/*.php', 'templates/**/*'],  // Watch PHP and Twig folders
+        };
+    })
+
     // enables Sass/SCSS support
     //.enableSassLoader()
 
@@ -74,6 +84,6 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
-;
+    ;
 
 module.exports = Encore.getWebpackConfig();

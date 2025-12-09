@@ -1,0 +1,177 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products{% endblock %}
+
+{% block body %}
+
+<div class="page">
+    {% include 'common/sidebar.html.twig' %}
+
+    <main class="page__content">
+        <div class="details-head">
+            <h1>Products</h1>
+            <a class="fs-button back-btn" href="{{ path('app_products_index') }}""><i class=" fa-solid
+                fa-arrow-left"></i>back to list</a>
+        </div>
+
+        <div class="details__card">
+
+            <div class="details__card-main">
+                {% if product.image %}
+                <a href="{{ asset('uploads/products/' ~ product.image) }}" target="_blank">
+                    <img src="{{ asset('uploads/products/' ~ product.image) }}">
+                </a>
+                {% else %}
+                <div class="img-empty">No Image Available</div>
+                {% endif %}
+            </div>
+
+            <div class="details__card-info">
+                <h3>MAIN</h3>
+                <div class="card-info-main">
+                    <div class="top">
+                        <div class="info-row">
+                            <span class="h3-bold value">{{ product.name }}</span>
+                        </div>
+
+                        <div class="info-row">
+                            <span class="label">Description</span>
+                            <span class="value">
+                                {% if product.description is empty %}
+                                <em id="em-warning"> No description added </em>
+                                {% else %}
+                                {{ product.description }}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="bottom">
+                        <div class="info-row">
+                            <span class="label">ID</span>
+                            <span class="value">{{ product.id }}</span>
+                        </div>
+
+                        <div class="info-row">
+                            <span class="label">Product Categories</span>
+                            <span class="value">{{ product.productCategories.name }}</span>
+                        </div>
+
+                        <div class="info-row">
+                            <span class="label">Supplier</span>
+                            <span class="value"><a
+                                    href="{{ path('app_suppliers_show', {'id': product.supplierId.id}) }}">{{
+                                    product.supplierId.name }}</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3> DETAILS</h3>
+
+                <div class="card-info-details">
+                    <div class="left">
+                        <div class="info-row">
+                            <span class="label">Cost per Unit</span>
+                            <span class="value">{{ product.costPerUnit }}</span>
+                        </div>
+
+                        <div class="info-row">
+                            <span class="label">Price per Unit</span>
+                            <span class="value">{{ product.pricePerUnit }}</span>
+                        </div>
+
+                        <div class="info-row">
+                            <span class="label">Quantity on Hand</span>
+                            {% if product.stocks is not null %}
+                            <span class="value">{{ product.stocks.quantityInStock }}</span>
+                            {%else%}
+                            <em id="em-warning">No stock</em>
+                            {%endif%}
+                        </div>
+                    </div>
+
+                    <div class="right">
+                        <div class="info-row">
+                            <span class="label">SKU Code</span>
+                            <span class="value">{{ product.skuCode }}</span>
+                        </div>
+
+                        <div class="info-row">
+                            <span class="label">Reorder Level</span>
+                            <span class="value">{{ product.reorderLevel }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3> MISC </h3>
+                <div class="card-info-details">
+                    <div class="left">
+
+                        {% if product.ProductCategories.id == 1 %}
+                        <div class="info-row">
+                            <span class="label">IBSN</span>
+
+                            {% if product.bookDetails is not null %}
+                            <span class="value">{{ product.bookDetails.ISBN }}</span>
+                            {%else%}
+                            <em id="em-warning">No book details available</em>
+                            {%endif%}
+                        </div>
+
+                        {% elseif product.ProductCategories.id == 2 %}
+                        <div class="info-row">
+                            <span class="label">Roast Level</span>
+                            {% if product.coffeeDetails is not null %}
+                            <span class="value">{{ product.coffeeDetails.roastLevel }}</span>
+                            {%else%}
+                            <em id="em-warning">No coffee details available</em>
+                            {%endif%}
+                        </div>
+
+                        <div class="info-row">
+                            <span class="label">Weight per Package</span>
+                            {% if product.coffeeDetails is not null %}
+                            <span class="value">{{ product.coffeeDetails.weightPerPackage }}</span>
+                            {%else%}
+                            <em id="em-warning">No coffee details available</em>
+                            {%endif%}
+                        </div>
+                        {%endif%}
+
+                    </div>
+
+                    <div class="right">
+
+                        {% if product.ProductCategories.id == 1 %}
+
+                        <div class="info-row">
+                            <span class="label">Pages</span>
+                            {% if product.bookDetails is not null %}
+                            <span class="value">{{ product.bookDetails.pages }}</span>
+                            {%else%}
+                            <em id="em-warning">No book details available</em>
+                            {%endif%}
+                        </div>
+
+                        {% elseif product.ProductCategories.id == 2 %}
+                        <div class="info-row">
+                            <span class="label">Flavor Description</span>
+                            {% if product.coffeeDetails is not null %}
+                            <span class="value">{{ product.coffeeDetails.flavorDescription }}</span>
+                            {%else%}
+                            <em id="em-warning">No coffee details available</em>
+                            {%endif%}
+                        </div>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="details-footer">
+            <a class="fs-button edit-btn" href="{{ path('app_products_edit', {'id': product.id}) }}">Edit</a>
+            {{ include('products/_delete_form.html.twig') }}
+        </div>
+    </main>
+</div>
+{% endblock %}
